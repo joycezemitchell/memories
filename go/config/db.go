@@ -1,0 +1,34 @@
+package config
+
+import (
+	"context"
+	"fmt"
+	"log"
+	"os"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
+	"github.com/joho/godotenv"
+)
+
+// Database - Mongo DB collection global variable
+var Database *mongo.Database
+
+func init() {
+	
+	godotenv.Load("/var/www/memories.allyapps.com/memories.env")
+
+	// connect to MongoDB
+	fmt.Println("Connecting to MongoDB")
+	// client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://localhost:27017"))
+	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://" + os.Getenv("DBUSERNAME") + ":" + os.Getenv("DBPASSWORD") + "@" + os.Getenv("MONGOIP") + ":" + os.Getenv("MONGOPORT")))
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = client.Connect(context.TODO())
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	Database = client.Database("memories")
+}

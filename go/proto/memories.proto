@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package memories;
+
+import "google/api/annotations.proto";
+
+option go_package = "memoriespb";
+
+message Memories {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  string video = 4;
+  string thumbnail = 5;
+  string created_at = 6;
+  string updated_at = 7;
+}
+
+message ListVideosRequest {
+}
+
+message ListVideosResponse {
+  Memories memories = 1;
+}
+
+message UploadVideoRequest {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  string video = 4;
+  string thumbnail = 5;
+  string created_at = 6;
+  string updated_at = 7;
+}
+
+message UploadVideoResponse {
+  Memories memories = 1;
+}
+
+
+service MemoriesService {
+  rpc ListVideos (ListVideosRequest) returns (stream ListVideosResponse){
+    option (google.api.http) = {
+      get: "/api/v1/videos"
+    };
+  }; 
+  
+  rpc UploadVideo (UploadVideoRequest) returns (UploadVideoResponse){
+    option (google.api.http) = {
+      post: "/api/v1/videos"
+      body: "*"
+    };
+  }; 
+}
+
