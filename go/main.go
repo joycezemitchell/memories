@@ -8,11 +8,14 @@ import (
 	"os"
 
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/rs/cors"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/grpclog"
 
 	memoriespb "allyapps.com/memories/proto"
+	router "allyapps.com/memories/router"
 	server "allyapps.com/memories/server"
+	auth0 "allyapps.com/memories/auth0"
 )
 
 func main() {
@@ -52,7 +55,9 @@ func main() {
 	memoriespb.RegisterMemoriesServiceHandler(context.Background(), gwmux, conn)
 	// This is where GRPC Gateway comes into play - END ________________________
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	jwtMiddleware := auth0.JwtMiddleware()
+
+	var grpcHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 
@@ -60,6 +65,17 @@ func main() {
 		return
 	})
 
-	http.ListenAndServe(":13000", nil)
+	mux := http.NewServeMux()
+
+	mux.Handle("/", jwtMiddleware.Handler(grpcHandler))
+	mux.Handle("/session", jwtMiddleware.Handler(router.Session()))
+	mux.Handle("/login", router.Login())
+
+	corsWrapper := cors.New(cors.Options{
+		AllowedMethods: []string{"GET", "POST"},
+		AllowedHeaders: []string{"Content-Type", "Origin", "Accept", "*"},
+	})
+
+	http.ListenAndServe(":13000", corsWrapper.Handler(mux))
 
 }

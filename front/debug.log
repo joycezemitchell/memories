@@ -4,3 +4,19 @@
 [0904/222758.827:ERROR:exception_snapshot_win.cc(98)] thread ID 10956 not found in process
 [0904/222758.998:ERROR:process_info.cc(329)] VirtualQueryEx: Access is denied. (0x5)
 [0904/222758.998:ERROR:process_info.cc(556)] ReadMemoryInfo failed
+[1004/203946.649:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[1004/203946.649:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[1004/203946.649:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[1004/203946.649:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[1004/203946.649:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[1004/203946.649:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[1004/203946.649:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[1004/203948.227:ERROR:exception_snapshot_win.cc(99)] thread ID 9588 not found in process
+[1004/203948.227:ERROR:exception_snapshot_win.cc(99)] thread ID 6684 not found in process
+[1004/203946.649:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[1004/203948.227:ERROR:exception_snapshot_win.cc(99)] thread ID 10136 not found in process
+[1004/203948.227:ERROR:exception_snapshot_win.cc(99)] thread ID 8804 not found in process
+[1004/203948.227:ERROR:exception_snapshot_win.cc(99)] thread ID 8816 not found in process
+[1004/203948.227:ERROR:exception_snapshot_win.cc(99)] thread ID 11984 not found in process
+[1004/203948.227:ERROR:exception_snapshot_win.cc(99)] thread ID 8944 not found in process
+[1004/203948.227:ERROR:exception_snapshot_win.cc(99)] thread ID 4648 not found in process

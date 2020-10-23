@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -13,8 +13,13 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import Apps from '@material-ui/icons/Apps';
+import Favorite from '@material-ui/icons/Favorite';
+import FiberNew from '@material-ui/icons/FiberNew';
+import CloudUpload from '@material-ui/icons/CloudUpload';
+import ExitToApp from '@material-ui/icons/ExitToApp';
+import Cookies from 'universal-cookie';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -39,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Maindrawer(props) {
 
+  /* Token Cookie */
+  const cookies = new Cookies();
+
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(true);
@@ -47,8 +55,18 @@ export default function Maindrawer(props) {
     props.onCloseDrawer(false);
   };
 
-  return (
+  const handleLogout = (event) => {
+    cookies.remove('token', { path: '/' });
+    cookies.remove('email', { path: '/' });
+    cookies.remove('level', { path: '/' });
 
+    setTimeout(function () {
+      window.location.href = "/admin";
+    }, 500);
+
+  }
+
+  return (
     <Drawer
       className={classes.drawer}
       variant="persistent"
@@ -64,23 +82,36 @@ export default function Maindrawer(props) {
         </IconButton>
       </div>
       <Divider />
-      <List>
-        {['Home', 'Popular', 'Favorite'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
+      <div onClick={e => handleDrawerClose(open, e)} onKeyDown={e => handleDrawerClose(open, e)}>
+        <List>
+          <ListItem button component={Link} to="/" >
+            <ListItemIcon><Apps /></ListItemIcon>
+            <ListItemText primary="Home" />
           </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['Documentary', 'Music', 'Tutorial'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
+          <ListItem button component={Link} to="/">
+            <ListItemIcon><Favorite /></ListItemIcon>
+            <ListItemText primary="Favorite" />
           </ListItem>
-        ))}
-      </List>
+          <ListItem button component={Link} to="/">
+            <ListItemIcon><FiberNew /></ListItemIcon>
+            <ListItemText primary="Recently Added" />
+          </ListItem>
+        </List>
+        <Divider />
+        {props.userlevel == 1 ?
+          <List>
+            <ListItem button component={Link} to="/upload" >
+              <ListItemIcon><CloudUpload /></ListItemIcon>
+              <ListItemText primary="Upload" />
+            </ListItem>
+            <ListItem button onClick={e => handleLogout(e)}>
+              <ListItemIcon><ExitToApp /></ListItemIcon>
+              <ListItemText primary="Logout" />
+            </ListItem>
+          </List>
+          : ""
+        }
+      </div>
     </Drawer>
   );
 }

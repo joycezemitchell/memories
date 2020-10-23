@@ -5,17 +5,18 @@ import (
 	"fmt"
 	"log"
 	"os"
+
+	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"github.com/joho/godotenv"
 )
 
 // Database - Mongo DB collection global variable
 var Database *mongo.Database
 
 func init() {
-	
-	godotenv.Load("/var/www/memories.allyapps.com/memories.env")
+
+	godotenv.Load("/var/www/memories.allyapps.com.private/memories.env")
 
 	// connect to MongoDB
 	fmt.Println("Connecting to MongoDB")

@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
-
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-
 import Video from './Video'
-
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import CssBaseline from '@material-ui/core/CssBaseline';
-
 import NdjsonParser from 'ndjson-parse';
+import Cookies from 'universal-cookie';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -26,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 let vsi = [];
+
+/* Token Cookie */
+const cookies = new Cookies();
 
 export default function Videos(props) {
 
@@ -64,7 +64,11 @@ export default function Videos(props) {
 
   useEffect(() => {    
     // Not your usual API fetch. This one is parsing ReadableStream instead of ordinary JSON
-    fetch(process.env.REACT_APP_API_URL + "api/v1/videos")
+    fetch(process.env.REACT_APP_API_URL + "api/v1/videos",{
+      headers: {
+        Authorization: `Bearer ` + cookies.get('token'),
+      },
+    })
     .then((response) => {
       return response.body; //ndjsonStream parses the response.body
     }).then(rs => {

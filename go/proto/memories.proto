@@ -37,7 +37,6 @@ message UploadVideoResponse {
   Memories memories = 1;
 }
 
-
 service MemoriesService {
   rpc ListVideos (ListVideosRequest) returns (stream ListVideosResponse){
     option (google.api.http) = {

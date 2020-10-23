@@ -15,7 +15,7 @@ import (
 // AddToDb file
 func AddToDb(data map[string]string) {
 
-	godotenv.Load("/var/www/memories.allyapps.com/memories.env")
+	godotenv.Load("/var/www/memories.allyapps.com.private/memories.env")
 	// https://stackoverflow.com/questions/24455147/how-do-i-send-a-json-string-in-a-post-request-in-go
 	// https://medium.com/@masnun/making-http-requests-in-golang-dd123379efe7
 	// call api to add to database
