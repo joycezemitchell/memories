@@ -8,13 +8,14 @@ import Videoplay from './Components/Videoplay/Videoplay'
 import Login from './Components/Login/Login'
 import Blog from './Components/Blog/Blog'
 import Upload from './Components/Upload/Upload'
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
 import { Route, Switch } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import InputContext from './Utilities/InputContext/InputContext'
+import { useHistory } from "react-router-dom";
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -52,15 +53,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-let vid_id = ""
-
 function App() {
   const classes = useStyles();
-  const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [Routers, setRouters] = useState();
   const [userlevel, setUserlevel] = useState();
-
+  const history = useHistory();
 
 
   /* Token Cookie */
@@ -71,8 +69,11 @@ function App() {
   };
 
   const handleChildDrawerClose = (id) => {
-    vid_id = id
     setOpen(false);
+  };
+
+  const handlePlayVideo = (id) => {
+    history.push('/videoplay/' + id )
   };
 
   const gd = {
@@ -80,7 +81,6 @@ function App() {
       Level: "",
     }
   }
-
 
   useEffect(() => {
     const getSession = async () => {
@@ -91,8 +91,11 @@ function App() {
             Authorization: `Bearer ` + cookies.get('token'),
           },
         });
-
+        
         const responseData = await response.json();
+
+        console.log(responseData)
+
         gd.User.Level = cookies.get('level');
         setUserlevel(gd.User.Level)
         setRouters(
@@ -100,18 +103,19 @@ function App() {
             <InputContext.Provider value={gd}>
               <Switch>
                 <Route path="/Upload" component={Upload} />
-                <Route path="/Videoplay" component={() => <Videoplay id={vid_id} />} />
-                <Route path='/' exact render={(props) => (<Videos {...props} onLoadVideo={e => setOpen(true)} onVideoPlayMain={handleChildDrawerClose} />)} />
+                <Route path="/Videoplay/:idu" component={Videoplay} />
+                <Route path='/' exact render={(props) => (<Videos {...props} onLoadVideo={e => setOpen(true)} onVideoPlayMain={handlePlayVideo} />)} />
               </Switch>
             </InputContext.Provider>
           </Route>
         )
 
       } catch (error) {
+        console.log("test")
         console.log(error)
         setRouters(
           <Route>
-            <Switch>
+            <Switch>Videotest
               <Route path="/Blog" component={Blog} />
               <Route path="/" component={Login} />
             </Switch>

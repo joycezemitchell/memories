@@ -1,15 +1,10 @@
 import React, {useEffect, useState } from 'react';
 import Player from './Player'
 import Playlist from './Playlist'
-
-import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-
-import CssBaseline from '@material-ui/core/CssBaseline';
-
-import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
+import { useParams } from 'react-router-dom';
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -18,6 +13,9 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
   player: {
+    position: "relative",
+    left:"68%",
+
     [theme.breakpoints.down('lg')]: {
       position: "relative",
       left:"68%",
@@ -29,6 +27,8 @@ const useStyles = makeStyles((theme) => ({
     }, 
   },
   mainplayer: {
+    position: "fixed",
+    width:"90%",
     [theme.breakpoints.down('lg')]: {
       position: "fixed",
       width:"100%",
@@ -43,13 +43,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Videoplay(props) {
   const classes = useStyles();
-  const theme = useTheme();
- 
-  const [CurrentVideo, setCurrentVideo] = useState(props.id)
+  let { idu } = useParams();
 
+  const [CurrentVideo, setCurrentVideo] = useState(props.id)
   const handleVideoPlay = (id) => {
     setCurrentVideo(id)
   };
+
+  useEffect(() => {
+    setCurrentVideo(idu)
+  }, [idu])
 
   return (
     <React.Fragment>

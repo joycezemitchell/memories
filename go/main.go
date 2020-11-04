@@ -12,10 +12,10 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/grpclog"
 
+	auth0 "allyapps.com/memories/auth0"
 	memoriespb "allyapps.com/memories/proto"
 	router "allyapps.com/memories/router"
 	server "allyapps.com/memories/server"
-	auth0 "allyapps.com/memories/auth0"
 )
 
 func main() {
@@ -68,6 +68,7 @@ func main() {
 	mux := http.NewServeMux()
 
 	mux.Handle("/", jwtMiddleware.Handler(grpcHandler))
+	mux.Handle("/videos", jwtMiddleware.Handler(router.Videos()))
 	mux.Handle("/session", jwtMiddleware.Handler(router.Session()))
 	mux.Handle("/login", router.Login())
 

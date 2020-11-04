@@ -1,5 +1,5 @@
-import React, {useEffect, useState } from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import Loginform from './Loginform'
 import Grid from '@material-ui/core/Grid';
 
@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login(props) {
     const classes = useStyles();
-    const theme = useTheme();
 
     return (
         <React.Fragment>

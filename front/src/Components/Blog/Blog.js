@@ -1,5 +1,5 @@
-import React, {useEffect, useState } from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
@@ -10,7 +10,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Blog(props) {
     const classes = useStyles();
-    const theme = useTheme();
 
     return (
         <React.Fragment>

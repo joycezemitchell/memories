@@ -1,10 +1,13 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 import Uppy from '@uppy/core'
 import Tus from '@uppy/tus'
-import { DragDrop, Dashboard } from '@uppy/react'
+import { Dashboard } from '@uppy/react'
+
+import '@uppy/core/dist/style.css'
+import '@uppy/dashboard/dist/style.css'
 
 const uppy = new Uppy({
 	meta: { type: 'avatar' },
@@ -29,9 +32,20 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+let dOptions = {
+	inline: true,
+ 	target: '.DashboardContainer',
+  	replaceTargetContent: true,
+  	showProgressDetails: true,
+  	width:'100%',
+	height: 470,
+
+}
+
+
 export default function Upload(props) {
 	const classes = useStyles();
-	const theme = useTheme();
+
 
 	return (
 		<React.Fragment>
@@ -48,6 +62,7 @@ export default function Upload(props) {
 								browse: 'browse'
 							}
 						}}
+						{...dOptions}					
 					/>
 				</Grid>
 			</Grid>

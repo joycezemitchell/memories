@@ -1,14 +1,11 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 
-import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import ReactTimeAgo from 'react-time-ago'
 import Actions from './Actions';
@@ -55,22 +52,16 @@ export default function Video(props) {
 
   const gd = useContext(InputContext)
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
-  const theme = useTheme();
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
 
   const playVideo = (id, e) => {
     props.onVideoPlay(id);
-    props.route.push('/videoplay');
+    console.log(id)
   };
 
   return (
     <Grid item lg={3} xs={12} md={4} className={classes.itemGrid}>
       <Card className={classes.root}>
-        <CardHeader avatar={<Avatar aria-label="recipe" className={classes.avatar}>M</Avatar>} title={<ReactTimeAgo date={props.date}/>} subheader={props.date} />
+        <CardHeader avatar={<Avatar aria-label="recipe" className={classes.avatar}>M</Avatar>} title={<ReactTimeAgo date={props.datex}/>} subheader={props.datex} />
         <CardMedia className={classes.media} image={props.src} onClick={e => playVideo(props.id, e)} />
         <Actions userlevel={gd.User.Level}  />      
       </Card>

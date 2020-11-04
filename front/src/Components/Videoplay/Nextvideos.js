@@ -1,18 +1,11 @@
 import React from 'react';
-import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-
+import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
-
 import ReactTimeAgo from 'react-time-ago'
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,10 +33,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Nextvideos(props) {
   const classes = useStyles();
-  const theme = useTheme();
-  
+  const history = useHistory();
+
   const playVideo = (id, e) => {
     props.onVideoPlay(id);
+    history.push('/videoplay/' + id )
+    
   };
 
   return (
@@ -53,7 +48,7 @@ export default function Nextvideos(props) {
           className={classes.cover}
           image={props.img}
           title=""
-          onClick={e => playVideo(props.ids, e)}
+          onClick={e => playVideo(props.id, e)}
         />
         <div className={classes.details}>
           <CardContent className={classes.content}>
