@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
   player: {
     position: "relative",
     left:"68%",
-
     [theme.breakpoints.down('lg')]: {
       position: "relative",
       left:"68%",

@@ -9,6 +9,8 @@ import { Dashboard } from '@uppy/react'
 import '@uppy/core/dist/style.css'
 import '@uppy/dashboard/dist/style.css'
 
+import './Upload.css';
+
 const uppy = new Uppy({
 	meta: { type: 'avatar' },
 	restrictions: { maxNumberOfFiles: 1 },
@@ -34,12 +36,10 @@ const useStyles = makeStyles((theme) => ({
 
 let dOptions = {
 	inline: true,
- 	target: '.DashboardContainer',
   	replaceTargetContent: true,
   	showProgressDetails: true,
   	width:'100%',
 	height: 470,
-
 }
 
 

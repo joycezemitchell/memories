@@ -57,13 +57,17 @@ export default function Video(props) {
     props.onVideoPlay(id);
     console.log(id)
   };
+  
+  const deleteVideo = (id) => {
+    props.deleteVideo(id)
+  };
 
   return (
     <Grid item lg={3} xs={12} md={4} className={classes.itemGrid}>
       <Card className={classes.root}>
         <CardHeader avatar={<Avatar aria-label="recipe" className={classes.avatar}>M</Avatar>} title={<ReactTimeAgo date={props.datex}/>} subheader={props.datex} />
         <CardMedia className={classes.media} image={props.src} onClick={e => playVideo(props.id, e)} />
-        <Actions userlevel={gd.User.Level}  />      
+        <Actions userlevel={gd.User.Level} videoId={props.id} onDelete={deleteVideo}  />      
       </Card>
     </Grid>
   );

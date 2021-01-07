@@ -57,6 +57,7 @@ func main() {
 
 		// Delete file after uploading
 		os.Remove(sourceDirectory + "/" + info.Name())
+		os.Remove(targetDirecotry + "/" + info.Name())
 
 		return nil
 	})
